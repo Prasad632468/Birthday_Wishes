@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Girl 💗</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Pacifico&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:'Baloo 2',cursive;
+    overflow:hidden;
+    color:#75415c;
+}
+
+.screen{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    padding:12px;
+    overflow:hidden;
+}
+
+.screen.active{
+    display:flex;
+    animation:show .5s ease;
+}
+
+@keyframes show{
+    from{opacity:0;transform:scale(.95)}
+    to{opacity:1;transform:scale(1)}
+}
+
+#p1{background:linear-gradient(135deg,#ffd6e7,#e9d8ff)}
+#p2{background:linear-gradient(135deg,#ffe4c9,#ffd6e7)}
+#p3{background:linear-gradient(135deg,#e7dcff,#ffd4e7)}
+#p4{background:linear-gradient(135deg,#d9f5ef,#fce0f0)}
+#p5{background:linear-gradient(135deg,#fff0c9,#ffd9e9)}
+#p6{background:linear-gradient(135deg,#ffd6e7,#e9d8ff)}
+#p7{background:linear-gradient(135deg,#ffe3c8,#fbd6ee)}
+#p8{background:linear-gradient(135deg,#d9eaff,#f9d8eb)}
+#p9{background:linear-gradient(135deg,#fbd6e8,#ffe8c7)}
+
+.card{
+    width:min(520px,96vw);
+    max-height:94vh;
+    overflow-y:auto;
+    scrollbar-width:none;
+    text-align:center;
+    padding:22px 18px;
+    background:#ffffffdf;
+    border:3px solid white;
+    border-radius:30px;
+    box-shadow:0 12px 35px #9e608333;
+    position:relative;
+    z-index:2;
+}
+
+.card::-webkit-scrollbar{display:none}
+
+h1{
+    font-family:'Pacifico',cursive;
+    color:#e45d9a;
+    font-size:clamp(28px,7vw,43px);
+    margin-bottom:10px;
+}
+
+h2{color:#c45b94;margin-bottom:10px;font-size:24px}
+p{font-size:17px;line-height:1.5;margin:7px 0}
+.big{font-size:65px;margin:10px}
+
+button{
+    border:0;
+    border-radius:30px;
+    padding:11px 21px;
+    margin:7px 3px;
+    background:#ed7eae;
+    color:white;
+    font-family:inherit;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:0 5px 0 #cf5b91;
+    transition:.2s;
+}
+
+button:hover{transform:translateY(-3px);background:#df6199}
+button:active{transform:translateY(2px);box-shadow:none}
+
+.alt{background:#a58ae5;box-shadow:0 5px 0 #8268c2}
+.green{background:#70bfa6;box-shadow:0 5px 0 #4a987f}
+
+.float{
+    position:fixed;
+    font-size:28px;
+    pointer-events:none;
+    animation:float 4s infinite ease-in-out;
+    z-index:1;
+}
+
+@keyframes float{
+    50%{transform:translateY(-20px) rotate(15deg)}
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin:15px 0;
+}
+
+.gallery img{
+    width:100%;
+    height:100px;
+    object-fit:cover;
+    background:#ffe2ee;
+    border:3px solid white;
+    border-radius:15px;
+    cursor:pointer;
+}
+
+.reason{
+    background:#fff0f6;
+    padding:9px;
+    border-radius:13px;
+    margin:7px 0;
+    font-size:16px;
+}
+
+.letter{
+    background:#fff8fb;
+    border:2px dashed #ee9fc2;
+    padding:16px;
+    border-radius:20px;
+    line-height:1.6;
+    font-size:16px;
+}
+
+#modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#281322e8;
+    z-index:50;
+    justify-content:center;
+    align-items:center;
+}
+
+#modal img{
+    max-width:85vw;
+    max-height:75vh;
+    border:5px solid white;
+    border-radius:20px;
+}
+
+#modal button{
+    position:absolute;
+    top:15px;
+    right:15px;
+}
+
+/* HEART GAME */
+
+.game-area{
+    height:220px;
+    width:100%;
+    background:#fff0f7;
+    border:2px dashed #ed91ba;
+    border-radius:20px;
+    position:relative;
+    overflow:hidden;
+    margin:12px 0;
+    touch-action:manipulation;
+}
+
+.game-heart{
+    position:absolute;
+    top:0;
+    font-size:32px;
+    cursor:pointer;
+    user-select:none;
+    z-index:5;
+    animation:heartFall 2.5s linear forwards;
+}
+
+@keyframes heartFall{
+    from{transform:translateY(-40px)}
+    to{transform:translateY(250px)}
+}
+
+.progress{
+    background:#f4d3e3;
+    height:12px;
+    border-radius:20px;
+    overflow:hidden;
+    margin:12px 0;
+}
+
+#bar{
+    height:100%;
+    width:0%;
+    background:#e66ca3;
+    transition:.3s;
+}
+
+@media(max-width:400px){
+    .card{padding:17px 13px}
+    p{font-size:15px}
+    .gallery img{height:82px}
+    button{padding:10px 16px;font-size:15px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="float" style="top:5%;left:7%">🎀</div>
+<div class="float" style="top:10%;right:7%">⭐</div>
+<div class="float" style="bottom:8%;left:7%">🧸</div>
+<div class="float" style="bottom:10%;right:7%">🌸</div>
+
+<!-- PAGE 1 -->
+<section class="screen active" id="p1">
+<div class="card">
+    <div class="big">🧸🎀</div>
+    <h1>Hey My Girl!</h1>
+    <h2>Welcome to your little world 💗</h2>
+    <p>Today is not an ordinary day...</p>
+    <p>Because today, my favourite girl was born! </p>
+    <button onclick="go(2)">Enter My World 💕</button>
+</div>
+</section>
+
+<!-- PAGE 2 -->
+<section class="screen" id="p2">
+<div class="card">
+    <div class="big">🎁</div>
+    <h1>A Gift For You!</h1>
+    <p>I have a special gift for my little princess.</p>
+    <p>Tap the gift box to open it! 😍</p>
+    <div class="big" onclick="gift()" style="cursor:pointer">🎁</div>
+    <h2 id="giftText"></h2>
+    <button onclick="go(3)">Next Surprise 💗</button>
+</div>
+</section>
+
+<!-- PAGE 3 QUIZ -->
+<section class="screen" id="p3">
+<div class="card">
+    <div class="big">🥰</div>
+    <h1>Little Love Quiz</h1>
+    <h2>Who is the cutest girl?</h2>
+    <div id="answers">
+        <button onclick="answer()">Manuu 😘</button>
+        <button class="alt" onclick="answer()">Obviously Manuu 😂</button>
+    </div>
+    <p id="quizResult"></p>
+    <button onclick="go(4)">Continue 💕</button>
+</div>
+</section>
+
+<!-- PAGE 4 GAME -->
+<section class="screen" id="p4">
+<div class="card">
+    <div class="big">🎮💗</div>
+    <h1>Catch My Love!</h1>
+    <p>Catch 10 falling hearts! You have 15 seconds!</p>
+
+    <h2>Score: <span id="score">0</span> / 10</h2>
+    <h3>Time: <span id="timer">15</span> seconds</h3>
+
+    <div class="progress">
+        <div id="bar"></div>
+    </div>
+
+    <div class="game-area" id="gameArea"></div>
+
+    <button onclick="startGame()">Start Game 🎮</button>
+    <button class="alt" onclick="startGame()">Restart 🔄</button>
+
+    <p id="gameResult">Ready, Manuu? Catch 10 hearts! 💗</p>
+    <button onclick="go(5)">Next 💗</button>
+</div>
+</section>
+
+<!-- PAGE 5 GALLERY -->
+<section class="screen" id="p5">
+<div class="card">
+    <h1>Our Little Memories 📸</h1>
+    <p>Every picture tells a beautiful story.</p>
+
+    <div class="gallery">
+        <img src="photo1.jpg" alt="Memory 1" onclick="photo(this)">
+        <img src="photo2.jpg" alt="Memory 2" onclick="photo(this)">
+        <img src="photo3.jpg" alt="Memory 3" onclick="photo(this)">
+        <img src="photo4.jpg" alt="Memory 4" onclick="photo(this)">
+        <img src="photo5.jpg" alt="Memory 5" onclick="photo(this)">
+        <img src="photo6.jpg" alt="Memory 6" onclick="photo(this)">
+    </div>
+
+    <p>My favourite place is wherever you are. ❤️</p>
+    <button onclick="go(6)">Read Something Special 💌</button>
+</div>
+</section>
+
+<!-- PHOTO POPUP -->
+<div id="modal" onclick="closePhoto()">
+    <button onclick="closePhoto()">✕</button>
+    <img id="largePhoto" src="" alt="Memory">
+</div>
+
+<!-- PAGE 6 LETTER -->
+<section class="screen" id="p6">
+<div class="card">
+    <div class="big">💌</div>
+    <h1>Just For You...</h1>
+
+    <div class="letter">
+        My Dearest Manuu, ❤️<br><br>
+
+        I don't know how to explain how special you are
+        to me. Sometimes you act like a little kid,
+        sometimes you get angry for silly things,
+        sometimes you make me laugh without even trying. 😂<br><br>
+
+        But honestly, these little things make you
+        so special in my life.<br><br>
+
+        I don't need a perfect girl. I just want YOU.
+        With your cute smile, silly talks, childish
+        behaviour and everything that makes you YOU.<br><br>
+
+        I may not be perfect, but I promise to keep
+        trying to make you smile, support your dreams
+        and make beautiful memories together.<br><br>
+
+        Please never think you are ordinary.
+        You are someone's favourite person.
+        And that someone is ME. ❤️<br><br>
+
+        Forever your pagal person! 💗
+    </div>
+
+    <button onclick="go(7)">15 Reasons 💕</button>
+</div>
+</section>
+
+<!-- PAGE 7 REASONS -->
+<section class="screen" id="p7">
+<div class="card">
+    <div class="big">💗</div>
+    <h1>15 Reasons I Love You</h1>
+    <div id="reasons"></div>
+    <button onclick="go(8)">Send Me A Hug 🤗</button>
+</div>
+</section>
+
+<!-- PAGE 8 INTERACTIVE -->
+<section class="screen" id="p8">
+<div class="card">
+    <div class="big">🤗</div>
+    <h1>Choose Your Surprise!</h1>
+    <p>What does my little princess want?</p>
+
+    <button onclick="hug()">A Big Hug 🤗</button>
+    <button class="alt" onclick="kiss()">A Cute Kiss 😘</button>
+    <button class="green" onclick="love()">Unlimited Love 💗</button>
+
+    <h2 id="affection"></h2>
+    <div class="big" id="affectionEmoji">🥺</div>
+
+    <button onclick="go(9)">Birthday Finale 🎂</button>
+</div>
+</section>
+
+<!-- PAGE 9 FINALE -->
+<section class="screen" id="p9">
+<div class="card">
+    <div class="big">🎂</div>
+    <h1>Happy Birthday!</h1>
+    <h2>My Beautiful Manuu! 👑</h2>
+
+    <p>
+        May your life be full of happiness,
+        chocolates, cute teddy bears, shopping,
+        beautiful memories and endless smiles! 💗
+    </p>
+
+    <p>You deserve all the love in this universe./p>
+
+    <button onclick="celebrate()">Make A Wish! ✨</button>
+    <button class="alt" onclick="go(1)">Replay Our Story 🔁</button>
+
+    <h2 id="finalText"></h2>
+</div>
+</section>
+
+<script>
+
+// PAGE NAVIGATION
+function go(n){
+    document.querySelectorAll('.screen').forEach(s=>{
+        s.classList.remove('active');
+    });
+
+    document.getElementById('p'+n).classList.add('active');
+
+    if(n !== 4){
+        stopGame();
+    }
+}
+
+// GIFT
+function gift(){
+    document.getElementById('giftText').innerHTML =
+        "Surprise! You are my favourite gift! 💗 ";
+    celebrate();
+}
+
+// QUIZ
+let quizDone = false;
+
+function answer(){
+    if(quizDone) return;
+
+    quizDone = true;
+
+    document.getElementById('quizResult').innerHTML =
+        "Correct answer! 100/100 marks! 😂💗";
+
+    document.getElementById('answers').innerHTML =
+        "<h2>Manuu is the cutest girl ever! 🥰</h2>";
+}
+
+// REASONS
+const reasonList = [
+    "Your beautiful smile 😊",
+    "Your cute childish behaviour 🧸",
+    "The way you make me laugh 😂",
+    "Your adorable little anger 😤",
+    "Your sweet voice 🎀",
+    "Your beautiful heart ❤️",
+    "The way you care 💕",
+    "Your silly jokes 🤭",
+    "Your lovely eyes 👀",
+    "Your unique personality ✨",
+    "Your presence makes me happy ",
+    "Your dreams inspire me 🌈",
+    "Your hugs feel special 🤗",
+    "Every memory with you 📸",
+    "Simply because you are YOU! 💗"
+];
+
+document.getElementById('reasons').innerHTML =
+    reasonList.map((r,i)=>
+        `<div class="reason">${i+1}. ${r}</div>`
+    ).join('');
+
+// HUG, KISS, LOVE
+function hug(){
+    document.getElementById('affection').innerHTML =
+        "Sending you the biggest hug ever!";
+    document.getElementById('affectionEmoji').innerHTML = "🤗💗";
+    celebrate();
+}
+
+function kiss(){
+    document.getElementById('affection').innerHTML =
+        "Muaaah! A thousand cute kisses!";
+    document.getElementById('affectionEmoji').innerHTML = "😘💋";
+    celebrate();
+}
+
+function love(){
+    document.getElementById('affection').innerHTML =
+        "Unlimited love delivered successfully!";
+    document.getElementById('affectionEmoji').innerHTML = "💗💗";
+    celebrate();
+}
+
+// PHOTO GALLERY
+function photo(img){
+    document.getElementById('largePhoto').src = img.src;
+    document.getElementById('modal').style.display = 'flex';
+}
+
+function closePhoto(){
+    document.getElementById('modal').style.display = 'none';
+}
+
+document.addEventListener('keydown',e=>{
+    if(e.key === 'Escape') closePhoto();
+});
+
+// HEART CATCHING GAME
+let score = 0;
+let timeLeft = 15;
+let playing = false;
+let spawnTimer = null;
+let countdownTimer = null;
+
+function startGame(){
+    stopGame();
+
+    score = 0;
+    timeLeft = 15;
+    playing = true;
+
+    document.getElementById('score').textContent = score;
+    document.getElementById('timer').textContent = timeLeft;
+    document.getElementById('bar').style.width = '0%';
+    document.getElementById('gameResult').textContent =
+        "Catch the hearts, Manuu! 💗";
+
+    document.getElementById('gameArea').innerHTML = '';
+
+    spawnTimer = setInterval(createHeart,650);
+
+    countdownTimer = setInterval(()=>{
+        timeLeft--;
+
+        document.getElementById('timer').textContent = timeLeft;
+
+        if(timeLeft <= 0){
+            finishGame(false);
+        }
+    },1000);
+}
+
+function createHeart(){
+    if(!playing) return;
+
+    const area = document.getElementById('gameArea');
+    const heart = document.createElement('div');
+
+    heart.className = 'game-heart';
+    heart.textContent = '💗';
+
+    const maxLeft = Math.max(0,area.clientWidth-40);
+    heart.style.left = Math.random()*maxLeft+'px';
+
+    heart.addEventListener('pointerdown',function(e){
+        e.preventDefault();
+
+        if(!playing) return;
+
+        score++;
+
+        document.getElementById('score').textContent = score;
+        document.getElementById('bar').style.width =
+            (score*10)+'%';
+
+        heart.remove();
+
+        if(score >= 10){
+            finishGame(true);
+        }
+    });
+
+    area.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),2600);
+}
+
+function finishGame(won=false){
+    if(!playing) return;
+
+    playing = false;
+
+    clearInterval(spawnTimer);
+    clearInterval(countdownTimer);
+
+    document.getElementById('gameArea').innerHTML = '';
+
+    if(won){
+        document.getElementById('gameResult').innerHTML =
+            "🎉 YOU WON, MANUU! 🥳<br>All my hearts belong to you! 💗";
+    }else{
+        document.getElementById('gameResult').innerHTML =
+            "Awww! You caught "+score+
+            " hearts! Try again, Cutie! 💗 ";
+    }
+}
+
+function stopGame(){
+    playing = false;
+    clearInterval(spawnTimer);
+    clearInterval(countdownTimer);
+}
+
+// FLOATING HEARTS
+function floatingHeart(){
+    const h = document.createElement('div');
+
+    h.innerText = ['💗','💕','🌸','✨','🎀'][
+        Math.floor(Math.random()*5)
+    ];
+
+    h.style.position = 'fixed';
+    h.style.left = Math.random()*100+'vw';
+    h.style.bottom = '-35px';
+    h.style.fontSize = (18+Math.random()*20)+'px';
+    h.style.pointerEvents = 'none';
+    h.style.zIndex = '10';
+    h.style.transition = 'transform 5s linear, opacity 5s';
+
+    document.body.appendChild(h);
+
+    requestAnimationFrame(()=>{
+        h.style.transform =
+            `translateY(-${innerHeight+70}px) rotate(360deg)`;
+        h.style.opacity = '0';
+    });
+
+    setTimeout(()=>h.remove(),5100);
+}
+
+setInterval(floatingHeart,500);
+
+// CELEBRATION
+function celebrate(){
+    const symbols = ['🎉','💗','💕','✨','🌸','🎀','🥳','🧸'];
+
+    for(let i=0;i<55;i++){
+        setTimeout(()=>{
+            const el = document.createElement('div');
+
+            el.innerText =
+                symbols[Math.floor(Math.random()*symbols.length)];
+
+            el.style.position = 'fixed';
+            el.style.left = Math.random()*100+'vw';
+            el.style.top = '-40px';
+            el.style.fontSize = '25px';
+            el.style.zIndex = '100';
+            el.style.pointerEvents = 'none';
+            el.style.transition =
+                'transform 3s linear, opacity 3s';
+
+            document.body.appendChild(el);
+
+            requestAnimationFrame(()=>{
+                el.style.transform =
+                    `translateY(${innerHeight+60}px) rotate(500deg)`;
+                el.style.opacity = '0';
+            });
+
+            setTimeout(()=>el.remove(),3100);
+
+        },i*35);
+    }
+
+    document.getElementById('finalText').innerHTML =
+        "I LOVE YOU MY MANUU! 😘💋💗";
+}
+
+</script>
+</body>
+</html>
